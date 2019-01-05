@@ -15,7 +15,7 @@
         <li v-for="(item,index) in goods" :key="index" class="foods-li food-list-hook">
           <h1 class="title">{{item.name}}</h1>
           <ul class="singleFood-ul">
-            <li v-for="(item_foods,index_foods) in item.foods" :key="index_foods" class="foods-item">
+            <li @click="selectFoods(item_foods, $event)" v-for="(item_foods,index_foods) in item.foods" :key="index_foods" class="foods-item">
               <div class="icon">
                 <img width="57px" :src="item_foods.icon">
               </div>
@@ -33,6 +33,7 @@
                 <div class="cart-wrapper">
                   <cartcontrol :food="item_foods" v-on:cart-add="_drop"></cartcontrol>
                 </div>
+                <food :food="selectFood"></food>
               </div>
             </li>
           </ul>
