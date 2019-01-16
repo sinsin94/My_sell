@@ -15,7 +15,7 @@
         <li v-for="(item,index) in goods" :key="index" class="foods-li food-list-hook">
           <h1 class="title">{{item.name}}</h1>
           <ul class="singleFood-ul">
-            <li @click="selectFoods(item_foods, $event)" v-for="(item_foods,index_foods) in item.foods" :key="index_foods" class="foods-item">
+            <li @click="selectFood(item_foods, $event)" v-for="(item_foods,index_foods) in item.foods" :key="index_foods" class="foods-item">
               <div class="icon">
                 <img width="57px" :src="item_foods.icon">
               </div>
@@ -33,7 +33,6 @@
                 <div class="cart-wrapper">
                   <cartcontrol :food="item_foods" v-on:cart-add="_drop"></cartcontrol>
                 </div>
-                <food :food="selectFood"></food>
               </div>
             </li>
           </ul>
@@ -41,6 +40,7 @@
       </ul>
     </div>
     <shopcart ref="shopcart" :delivery-price = "seller.deliveryPrice" :min-price = "seller.minPrice" :select-foods="selectFoods"></shopcart>
+    <food ref="food" :food="selectedFood" class="food" v-on:cart-add="_drop" v-on:food-add="_drop"></food>
   </div>
 </template>
 
@@ -48,6 +48,7 @@
   import BScroll from 'better-scroll';
   import shopcart from '../../components/shopcart/shopcart.vue';
   import cartcontrol from '../../components/cartcontrol/cartcontrol.vue';
+  import food from '../../components/food/food.vue';
   const ERR_OK = 0;
   export default {
     props: {
@@ -59,7 +60,8 @@
       return {
         goods: [],
         listHeight: [],
-        scrollY: 0
+        scrollY: 0,
+        selectedFood: {}
       };
     },
     computed: {
@@ -107,7 +109,8 @@
     },
     components: {
       shopcart,
-      cartcontrol
+      cartcontrol,
+      food
     },
     methods: {
       _initScroll() {
@@ -138,9 +141,13 @@
         let el = foodList[index];
         this.foodScroll.scrollToElement(el, 300);
       },
+      selectFood(food, event) {
+        this.selectedFood = food;
+        this.$refs.food.show();
+      },
       _drop(target) {
+        console.log('good._drop');
         this.$refs.shopcart.drop(target);
-        // console.log(11);
       }
     }
 //    events: {

@@ -137,6 +137,7 @@
     },
     methods: {
       drop(el) {
+        console.log('shopcart.drop');
         for (let i = 0; i < this.balls.length; i++) {
           let ball = this.balls[i];
           if (!ball.show) {
@@ -297,7 +298,7 @@
         position fixed
         left: 32px
         bottom: 22px
-        z-index:200
+        z-index:60000
         transition: all .6s cubic-bezier(0.49, -0.29, 0.75, 0.41)
         .inner
           width 16px
