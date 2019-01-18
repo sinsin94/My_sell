@@ -29,4 +29,4 @@ let vue = new Vue({
   components: { App } // 组册组件，这里是一个es6的缩写方法，相当于components:{App:App}
 });
 vue.$mount('#app'); // 把vue挂载到dom上
-router.push('/goods');
+// router.push('/goods');
